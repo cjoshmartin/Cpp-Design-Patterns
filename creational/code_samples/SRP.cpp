@@ -17,11 +17,14 @@ struct Journal
         entries.push_back(entry);
      }
 
-     void save(const std::string& filename)
+};
+
+struct PersistenceManager 
+{
+     static void save(const Journal& j, const std::string& filename)
      {
-         // don't  make a function like this inside a struct like this one 
         std::ofstream ofs(filename);
-        for (auto& s: entries)
+        for (auto& s: j.entries)
             ofs << s << std::endl;
      }
 };
