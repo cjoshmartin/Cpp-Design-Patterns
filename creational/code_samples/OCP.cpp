@@ -22,10 +22,10 @@ struct ProductFilter
         return result;
     } 
     
-    static Items by_color_and_size(Items items, Color color){
+    static Items by_color_and_size(Items items, Color color, Size size){
         Items result;
         for (auto& i :items)
-            if(i->color == color && ai->size == size)
+            if(i->color == color && i->size == size)
                 result.push_back(i);
 
         return result;
