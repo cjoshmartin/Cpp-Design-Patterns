@@ -1,4 +1,15 @@
-//
-// Created by Josh Martin on 7/22/17.
-//
+#include <sstream>
+using namespace std;
 
+struct Tag
+{
+
+};
+
+
+int main(){
+
+
+    getchar();
+    return 0;
+}
