@@ -5,6 +5,8 @@
 #include <memory>
 using namespace std;
 
+class HtmlBuilder;
+
 
 struct  HtmlElement
 {
@@ -41,9 +43,7 @@ struct  HtmlElement
 
         return  oss.str();
     } //end of  string
-
 };
-
 
  struct HtmlBuilder
  {
@@ -52,10 +52,12 @@ struct  HtmlElement
         root.name = root_name;
     }
 
-     void add_child(string child_name, string child_text)
+     HtmlBuilder& add_child(string child_name, string child_text)
      {
          HtmlElement e{child_name,child_text};
          root.elements.emplace_back(e);
+
+         return *this;
 
      }
      string str() const
@@ -63,16 +65,20 @@ struct  HtmlElement
         return root.str();
      }
 
+     operator HtmlElement () { return root;}
+
      HtmlElement root;
  };
 
+static HtmlBuilder HtmlElement::build(string root_name){
+    return HtmlBuilder{root_name};
+}
+
 int main()
 {
+    HtmlElement e = HtmlElement::build("ul").add_child("li","hello");
 
-    HtmlBuilder builder{"ul"};
-    builder.add_child("li","Hello");
-    builder.add_child("li","World!");
-    cout << builder.str() << endl;
+    cout << e.str() << endl;
 
     getchar();
     return 0;
