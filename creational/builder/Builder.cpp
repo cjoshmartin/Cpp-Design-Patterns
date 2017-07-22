@@ -43,6 +43,7 @@ struct  HtmlElement
 
         return  oss.str();
     } //end of  string
+    static  HtmlBuilder builder(string root_name);
 };
 
  struct HtmlBuilder
