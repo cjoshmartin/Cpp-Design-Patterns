@@ -43,7 +43,9 @@ struct  HtmlElement
 
         return  oss.str();
     } //end of  string
-    static  HtmlBuilder builder(string root_name);
+    static  HtmlBuilder builder(string root_name){
+        static  unique_ptr<HtmlBuilder> create(string root_name);
+    }
 };
 
  struct HtmlBuilder
@@ -59,7 +61,14 @@ struct  HtmlElement
          root.elements.emplace_back(e);
 
          return *this;
+     }
 
+     HtmlBuilder* add_child_2(string child_name, string child_text)
+     {
+         HtmlElement e{child_name,child_text};
+         root.elements.emplace_back(e);
+
+         return this;
      }
      string str() const
      {
@@ -71,13 +80,22 @@ struct  HtmlElement
      HtmlElement root;
  };
 
-static HtmlBuilder HtmlElement::build(string root_name){
+HtmlBuilder HtmlElement::build(string root_name){
     return HtmlBuilder{root_name};
+}
+
+unique_ptr<HtmlBuilder> HtmlElement::create(string root_name)
+{
+    return make_unique<HtmlBuilder>(root_name);
 }
 
 int main()
 {
+    // using dots
     HtmlElement e = HtmlElement::build("ul").add_child("li","hello");
+
+    // using arrows
+    HtmlElement ee = HtmlElement::create("ul")->add_child_2("li","hello")->add_child_2("li","world");
 
     cout << e.str() << endl;
 
