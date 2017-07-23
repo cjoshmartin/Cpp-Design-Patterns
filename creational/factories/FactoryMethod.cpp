@@ -8,6 +8,20 @@
 class Point
 {
 
+    class PointFactory
+    {
+    public:
+        static Point NewCartesian(const float x, const float y)
+        {
+            return {x,y};
+        }
+
+        static Point NewPolar(const float r, const float theta)
+        {
+            return {r*cos(theta),r*sin(theta)};
+        }
+    };
+
     Point(const float a, const float b)
             : x{a},
               y{b}
@@ -22,33 +36,14 @@ public:
     {
         return os << "x: " << obj.x << " y: " << obj.y;
     }
-    friend class PointFacotory;
-};
-
-class PointFactory
-{
-public:
-    static Point NewCartesian(const float x, const float y)
-    {
-        return {x,y};
-    }
-
-    static Point NewPolar(const float r, const float theta)
-    {
-        return {r*cos(theta),r*sin(theta)};
-    }
+    static PointFactory Factory;
 };
 
 
 int main()
 {
-    Point p{1,2};
-    // Cartesian
-    auto c = PointFactory::NewCartesian(1,2);
-    std::cout << c << std::endl;
-
-    // Polar
-    std::cout << PointFactory::NewPolar(5,M_PI_4) << std::endl;
+    auto p = Point::Factory.NewCartesian(2,3);
+    cout << p << std::endl;
 
     getchar();
     return 0;
