@@ -43,7 +43,10 @@ int main()
 	Contact jane{"Jane Doe",addr};
 	jane.work_address->suite=123;
 
-	cout << john << endl << jane <<endl; // print john and jane to have the same suit address ( that is not what we want )
+	cout << john << endl << jane <<endl;   // print john and jane to have the same suit address ( that is not what we want ).
+										  //  The problem comes from that we are shallow copying all the everything
+										 //   which means, copies the address of pointers not the value of said pointer
+										//	  ==> john.work_address->suite <===> jane.work_address->suite
 
 	delete addr;
 
