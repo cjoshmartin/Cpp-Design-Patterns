@@ -46,7 +46,7 @@ int main()
 	cout << john << endl << jane <<endl;   // print john and jane to have the same suit address ( that is not what we want ).
 										  //  The problem comes from that we are shallow copying all the everything
 										 //   which means, copies the address of pointers not the value of said pointer
-										//	  ==> john.work_address->suite <===> jane.work_address->suite
+										//	  ==> john.work_address <===> jane.work_address
 
 	delete addr;
 
