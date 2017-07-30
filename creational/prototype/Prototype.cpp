@@ -42,22 +42,32 @@ struct Contact{
 	}
 };
 
+struct  EmployeeFactory
+{
+	static unique_ptr<Contact> NewMainOfficeEmployee() // a smart pointer function makes it easier to deep copy
+	{
+		static Contact employee{"", new Address{"124 East Drive", "London", 0}}; // employee prototype
+		return make_unique<Contact(employee)>; // passes a COPY of employee
+	}
+};
+
 int main()
 {
-    Address* addr = new Address{"123 East Dr", "London" }; // want to prototype
 
-	Contact john{"John Doe",addr};
-	john.work_address->suite=100;
+	/*
+	Contact john{ employee }; // copying the prototype into john
+	john.name="John"; // customizing the john contact, by replace the name with `John`
+	john.work_address->suite =100;
 
-	Contact jane{"Jane Doe",addr};
-	jane.work_address->suite=123;
+	Contact jane{ employee };
+	jane.name = "Jane";
+	jane.work_address->suite = 123;
 
-	cout << john << endl << jane <<endl;  // it works great now!
-	Contact jill { jane };
-	jill.work_address->suite = 1000;
-	cout << jill << endl; 				//   However this will work because of the new constructor have added
-									   //	 allowing us to deep copy the pointer.
-	delete addr;
+	cout << john << endl << jane << endl;*/
+
+	auto john = EmployeeFactory::NewMainOfficeEmployee();
+	john->name = "John";
+	
 
 	getchar();
 	return 0;
