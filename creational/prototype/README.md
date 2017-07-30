@@ -4,7 +4,7 @@
  ## Implement 
  construct an object and store it somewhere
  
- ## Using the Prototype 
+ ## Using Prototypes 
  Clone the prototype and then customize the instance
  ```c++
  
