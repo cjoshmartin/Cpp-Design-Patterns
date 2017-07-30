@@ -79,12 +79,14 @@ int main()
 	Contact jane{ employee };
 	jane.name = "Jane";
 	jane.work_address->suite = 123;
+*/
+	auto john = EmployeeFactory::NewMainOfficeEmployee("John",100)l;
+	auto jane =EmployeeFactory::NewAuxOfficeEmployee("Jane",123);
+	
+	
+	cout << *john << endl << *jane << endl;
 
-	cout << john << endl << jane << endl;*/
-
-	auto john = EmployeeFactory::NewMainOfficeEmployee();
-	john->name = "John";
-
+	
 
 	getchar();
 	return 0;
