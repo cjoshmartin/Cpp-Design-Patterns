@@ -44,12 +44,29 @@ struct Contact{
 
 struct  EmployeeFactory
 {
-	static unique_ptr<Contact> NewMainOfficeEmployee() // a smart pointer function makes it easier to deep copy
+	static Contact main,aux; // Main Office and Auxiliary Office
+	static unique_ptr<Contact> NewMainOfficeEmployee(string name, int suite) // a smart pointer function makes it easier to deep copy
 	{
-		static Contact employee{"", new Address{"124 East Drive", "London", 0}}; // employee prototype
-		return make_unique<Contact(employee)>; // passes a COPY of employee
+		return NewEmployee(name,suite, main);
+	}
+
+	static unique_ptr<Contact> NewAuxOfficeEmployee(string name, int suite) // a smart pointer function makes it easier to deep copy
+	{
+		return NewEmployee(name,suite, aux);
+	}
+private:
+	static unique_ptr<Contact> NewEmployee(string name, int suite, Contact& proto)
+	{
+		auto result = make_unique<Contact>(proto);
+		result->name= name;
+		result->work_address->suite = suite;
+		return result;
 	}
 };
+
+Contact EmployeeFactory::main{"",new Address{"123 East Dr", "London", 0}};
+Contact EmployeeFactory::aux{"",new Address{"123B East Dr", "London", 0}};
+
 
 int main()
 {
@@ -67,7 +84,7 @@ int main()
 
 	auto john = EmployeeFactory::NewMainOfficeEmployee();
 	john->name = "John";
-	
+
 
 	getchar();
 	return 0;
