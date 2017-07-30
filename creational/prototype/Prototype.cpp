@@ -21,6 +21,15 @@ struct Address {
 struct Contact{
 	string name;
 	Address* work_address;
+
+	Contact(const string& name, Address* const work_address) // this construct is so that John and Jane still work.
+			: name{name},
+			  work_address{work_address} {}
+
+	Contact(const Contact& other) // this construct is how Jill works
+			: name{other.name},
+			work_address(new Address{*other.work_address}) {}
+
 	~Contact(){
 		//delete work_address;
 	}
@@ -47,7 +56,10 @@ int main()
 										  //  The problem comes from that we are shallow copying all the everything
 										 //   which means, copies the address of pointers not the value of said pointer
 										//	  ==> john.work_address <===> jane.work_address
-
+	Contact jill { jane };
+	jill.work_address->suite = 1000;
+	cout << jill << endl; 				//   However this will work because of the new constructor have added
+									   //	 allowing us to deep copy the pointer.
 	delete addr;
 
 	getchar();
