@@ -22,19 +22,23 @@ class SingletonDatabase
             capitals[s]=pop;
 
         }
+        instance_count++;
     }
     std::map<std::string,int> capitals;
 
     static SingletonDatabase* instance;
 
 public:
+    static int instance_count;
     SingletonDatabase(SingletonDatabase const&) = delete;
     void operator=(SingletonDatabase const&) = delete;
 
-    static SingletonDatabase* get_instance(){
+    static SingletonDatabase& get(){
 
-        if(!instance)
-            instance = new SingletonDatabase;
-        return instance;
+        static SingletonDatabase db;
+        return db;
+
     }
 };
+
+int SingletonDatabase::instance_count = 0;
